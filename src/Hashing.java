@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-class HashTableLibrary {
+class Hashing {
     private HashMap<String, Boolean> bookAvailability = new HashMap<>();
 
     public void addBook(String isbn, boolean available) {
