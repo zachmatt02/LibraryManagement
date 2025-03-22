@@ -15,53 +15,39 @@ public class Main {
                 case 1:
                     System.out.println("Book Borrowed");
                     break;
+                case 2:
+                    System.out.println("Book Borrowed");
+                    break;
+                case 3:
+                    System.out.println("Book Borrowed");
+                    break;
+                case 4:
+                    System.out.println("Book Borrowed");
+                    break;
             }
 
-
-
         }
-//        BinaryTree tree = new BinaryTree(20);
-//
-//
-//        tree.addNode(30);
-//
-//        System.out.println(tree.findNode(30));
-//
-//
-//        tree.addNode(5);
-//
-//        System.out.println(tree.findNode(5));
-//
-//        tree.addNode(35);
-//        tree.addNode(37);
-//        tree.addNode(36);
-//
-//        System.out.println(tree.findNode(36));
 
     }
 
     private static int getValidatedChoice(Scanner scanner, int min, int max) {
         int choice = -1;
         boolean validInput = false;
-
-        while(true) {
-            while(true) {
-                while(!validInput) {
-                    if (scanner.hasNextInt()) {
-                        choice = scanner.nextInt();
-                        if (choice >= min && choice <= max) {
-                            validInput = true;
-                        } else {
-                            System.out.println("Invalid choice. Please enter a number between " + min + " and " + max + ".");
-                        }
-                    } else {
-                        System.out.println("Invalid input. Please enter a number.");
-                        scanner.nextLine();
-                    }
+        while(!validInput) {
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice >= min && choice <= max) {
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid choice. Please enter a number between " + min + " and " + max + ".");
                 }
-
-                return choice;
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
             }
         }
+
+        return choice;
+
     }
 }

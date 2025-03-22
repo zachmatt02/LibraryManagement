@@ -35,7 +35,7 @@ public class BinaryTree {
 
         }
     }
-    public int findNode(int a){
+    public Node findNode(int a){
         String counter = "";
         Node currentNode = root;
         while(true)
@@ -49,7 +49,7 @@ public class BinaryTree {
                 }
                 else{
                     System.out.println("No Node with the value" + a);
-                    return 0;
+                    return null;
 
                 }
             }
@@ -62,16 +62,51 @@ public class BinaryTree {
                 }
                 else{
                     System.out.println("No Node with the value" + a);
-                    return 0;
+                    return null;
                 }
             }
             if (currentNode.getData() == a)
             {
                 System.out.println(counter);
 
-                return a;
+                return currentNode;
             }
         }
+
+    }
+    public void deleteNode(int a)
+    {
+        Node currentNode = findNode(a);
+        if(currentNode.left == null && currentNode.right == null)
+        {
+            currentNode = null;
+        }
+        else if(currentNode.left != null && currentNode.right == null)
+        {
+            currentNode = currentNode.left;
+        }
+        else if(currentNode.left == null && currentNode.right != null)
+        {
+            currentNode = currentNode.right;
+        }
+        else
+        {
+            Node finalNode = currentNode.right;
+            while(true)
+            {
+                if(finalNode.left == null)
+                {
+                    currentNode = null;
+                    currentNode = finalNode;
+                    break;
+                }
+                else
+                {
+                    finalNode = finalNode.left;
+                }
+            }
+        }
+
 
     }
 }
