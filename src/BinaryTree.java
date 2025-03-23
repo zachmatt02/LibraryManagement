@@ -78,7 +78,7 @@ public class BinaryTree {
 
 
     }
-    public Node findNode(String isbn) {
+    public Book findNode(String isbn) {
         String counter = "";
         Node currentNode = root;
 
@@ -97,7 +97,7 @@ public class BinaryTree {
             } else {
                 // Found the node
                 System.out.println(counter);
-                return currentNode;
+                return currentNode.getBook();
             }
         }
     }

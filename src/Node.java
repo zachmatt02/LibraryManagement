@@ -12,5 +12,8 @@ public class Node {
     public String getData() {
         return data.getIsbn();
     }
+    public Book getBook(){
+        return data;
+    }
 }
 

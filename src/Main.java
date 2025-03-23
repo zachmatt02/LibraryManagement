@@ -1,18 +1,20 @@
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
+         HashMap<Book, Boolean> bookAvailability = new HashMap<>();
 
-        Book book1 = new Book("978-0134685991", "Joshua Bloch", "Effective Java");
-        Book book2 = new Book("978-0596009205", "Kathy Sierra", "Head First Java");
-        Book book3 = new Book("978-0132350884", "Robert C. Martin", "Clean Code");
-        Book book4 = new Book("978-0201633610", "Erich Gamma", "Design Patterns");
-        Book book5 = new Book("978-1492056355", "Brian Goetz", "Java Concurrency in Practice");
+        Book book1 = new Book("9780134685991", "Joshua Bloch", "Effective Java");
+        Book book2 = new Book("9780596009205", "Kathy Sierra", "Head First Java");
+        Book book3 = new Book("9780132350884", "Robert C. Martin", "Clean Code");
+        Book book4 = new Book("9780201633610", "Erich Gamma", "Design Patterns");
+        Book book5 = new Book("9781492056355", "Brian Goetz", "Java Concurrency in Practice");
         BinaryTree tree = new BinaryTree(book1);
+
         tree.addNode(book2);
         tree.addNode(book3);
         tree.addNode(book4);
         tree.addNode(book5);
-        System.out.println(tree.findNode("978-1492056355"));
+        System.out.println(tree.findNode("9781492056355"));
 
 
         while(true){
@@ -24,9 +26,10 @@ public class Main {
             System.out.println("Please enter your choice: ");
             int num = scanner.nextInt();
             int choice = getValidatedChoice(scanner, 1, 4);
+
             switch(choice){
                 case 1:
-                    System.out.println("Book Borrowed");
+                    borrowingBook(tree,bookAvailability);
                     break;
                 case 2:
                     System.out.println("What book do you want to return");
@@ -63,5 +66,26 @@ public class Main {
 
         return choice;
 
+    }
+    private static void borrowingBook(BinaryTree tree, HashMap<Book, Boolean> bookAvailability) {
+        Scanner scanner = new Scanner(System.in);
+        String bookIsbn;
+        Book currentBook;
+        System.out.println("Book Borrowed");
+        System.out.println("Enter the ISBN of the book you want to borrow");
+        while (true) {
+            {
+                bookIsbn = scanner.nextLine();
+                if ((bookIsbn.length() == 10 || bookIsbn.length() == 13)) {
+                    break;
+                } else {
+                    System.out.println("Please enter an ISBN with either 10 or 13 digits ");
+                }
+            }
+            currentBook = tree.findNode(bookIsbn);
+            if (currentBook != null) {
+                System.out.println(currentBook.toString());
+            }
+        }
     }
 }
