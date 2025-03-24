@@ -1,7 +1,7 @@
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
-         HashMap<Book, Boolean> bookAvailability = new HashMap<>();
+        HashMap<Book, Boolean> bookAvailability = new HashMap<>();
 
         Book book1 = new Book("9780134685991", "Joshua Bloch", "Effective Java");
         Book book2 = new Book("9780596009205", "Kathy Sierra", "Head First Java");
@@ -23,7 +23,7 @@ public class Main {
         System.out.println(tree.findNode("9781492056355"));
 
 
-        while(true){
+        while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("1. Borrow a book");
             System.out.println("2. Return a book");
@@ -33,12 +33,12 @@ public class Main {
             //int num = scanner.nextInt();
             int choice = getValidatedChoice(scanner, 1, 4);
 
-            switch(choice){
+            switch (choice) {
                 case 1:
-                    borrowingBook(tree,bookAvailability);
+                    borrowingBook(tree, bookAvailability);
                     break;
                 case 2:
-                    returnBook(tree,bookAvailability);
+                    returnBook(tree, bookAvailability);
                     break;
                 case 3:
                     System.out.println("Enter your book");
@@ -56,7 +56,7 @@ public class Main {
     private static int getValidatedChoice(Scanner scanner, int min, int max) {
         int choice = -1;
         boolean validInput = false;
-        while(!validInput) {
+        while (!validInput) {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice >= min && choice <= max) {
@@ -73,6 +73,7 @@ public class Main {
         return choice;
 
     }
+
     private static void borrowingBook(BinaryTree tree, HashMap<Book, Boolean> bookAvailability) {
         Scanner scanner = new Scanner(System.in);
         String bookIsbn;
@@ -94,16 +95,15 @@ public class Main {
         if (currentBook != null) {
             System.out.println(currentBook.toString());
             System.out.println(bookAvailability.getOrDefault(currentBook, false));
-            if(!bookAvailability.getOrDefault(currentBook, false))
-            {
+            if (!bookAvailability.getOrDefault(currentBook, false)) {
                 System.out.println("The Book is not available ");
-            }
-            else{
+            } else {
                 bookAvailability.put(currentBook, false);
                 System.out.println("Book borrowed successfully.");
             }
         }
     }
+
     private static void returnBook(BinaryTree tree, HashMap<Book, Boolean> bookAvailability) {
         Scanner scanner = new Scanner(System.in);
         String bookIsbn;
@@ -125,14 +125,41 @@ public class Main {
         if (currentBook != null) {
             System.out.println(currentBook.toString());
             System.out.println(bookAvailability.getOrDefault(currentBook, false));
-            if(bookAvailability.getOrDefault(currentBook, false))
-            {
+            if (bookAvailability.getOrDefault(currentBook, false)) {
                 System.out.println("The Book already returned ");
-            }
-            else{
+            } else {
                 bookAvailability.put(currentBook, true);
                 System.out.println("Book returned successfully.");
             }
         }
     }
+
+    private static void donateBook(BinaryTree tree, HashMap<Book, Boolean> bookAvailability) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Donating Book");
+        String bookIsbn = scanner.nextLine();
+        while (true) {
+            {
+                bookIsbn = scanner.nextLine();
+                if ((bookIsbn.length() == 10 || bookIsbn.length() == 13)) {
+                    break;
+                } else {
+                    System.out.println("Please enter an ISBN with either 10 or 13 digits ");
+                }
+            }
+
+            System.out.println("Enter the title of the book:");
+            String title = scanner.nextLine();
+
+            System.out.println("Enter the author of the book:");
+            String author = scanner.nextLine();
+
+            Book donatedBook = new Book(bookIsbn, author, title);
+            tree.addNode(donatedBook);
+
+            bookAvailability.put(donatedBook, true);
+
+        }
+    }
 }
+
