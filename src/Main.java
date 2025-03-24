@@ -9,6 +9,12 @@ public class Main {
         Book book4 = new Book("9780201633610", "Erich Gamma", "Design Patterns");
         Book book5 = new Book("9781492056355", "Brian Goetz", "Java Concurrency in Practice");
         BinaryTree tree = new BinaryTree(book1);
+        bookAvailability.put(book1, false);
+        bookAvailability.put(book2, true);
+        bookAvailability.put(book3, true);
+        bookAvailability.put(book4, true);
+        bookAvailability.put(book5, true);
+
 
         tree.addNode(book2);
         tree.addNode(book3);
@@ -21,10 +27,10 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             System.out.println("1. Borrow a book");
             System.out.println("2. Return a book");
-            System.out.println("3. Search a book");
+            System.out.println("3. Donate your book ");
             System.out.println("4. Exit");
             System.out.println("Please enter your choice: ");
-            int num = scanner.nextInt();
+            //int num = scanner.nextInt();
             int choice = getValidatedChoice(scanner, 1, 4);
 
             switch(choice){
@@ -32,7 +38,7 @@ public class Main {
                     borrowingBook(tree,bookAvailability);
                     break;
                 case 2:
-                    System.out.println("What book do you want to return");
+                    returnBook(tree,bookAvailability);
                     break;
                 case 3:
                     System.out.println("Enter your book");
@@ -82,9 +88,50 @@ public class Main {
                     System.out.println("Please enter an ISBN with either 10 or 13 digits ");
                 }
             }
-            currentBook = tree.findNode(bookIsbn);
-            if (currentBook != null) {
-                System.out.println(currentBook.toString());
+
+        }
+        currentBook = tree.findNode(bookIsbn);
+        if (currentBook != null) {
+            System.out.println(currentBook.toString());
+            System.out.println(bookAvailability.getOrDefault(currentBook, false));
+            if(!bookAvailability.getOrDefault(currentBook, false))
+            {
+                System.out.println("The Book is not available ");
+            }
+            else{
+                bookAvailability.put(currentBook, false);
+                System.out.println("Book borrowed successfully.");
+            }
+        }
+    }
+    private static void returnBook(BinaryTree tree, HashMap<Book, Boolean> bookAvailability) {
+        Scanner scanner = new Scanner(System.in);
+        String bookIsbn;
+        Book currentBook;
+        System.out.println("Returning Book");
+        System.out.println("Enter the ISBN of the book you want to return");
+        while (true) {
+            {
+                bookIsbn = scanner.nextLine();
+                if ((bookIsbn.length() == 10 || bookIsbn.length() == 13)) {
+                    break;
+                } else {
+                    System.out.println("Please enter an ISBN with either 10 or 13 digits ");
+                }
+            }
+
+        }
+        currentBook = tree.findNode(bookIsbn);
+        if (currentBook != null) {
+            System.out.println(currentBook.toString());
+            System.out.println(bookAvailability.getOrDefault(currentBook, false));
+            if(bookAvailability.getOrDefault(currentBook, false))
+            {
+                System.out.println("The Book already returned ");
+            }
+            else{
+                bookAvailability.put(currentBook, true);
+                System.out.println("Book returned successfully.");
             }
         }
     }

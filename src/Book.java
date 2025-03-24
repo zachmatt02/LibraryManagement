@@ -2,13 +2,11 @@ public class Book {
     private String isbn;
     private String author;
     private String title;
-    private boolean availability;
 
     public Book(String isbn, String author, String title) {
         this.isbn = isbn;
         this.author = author;
         this.title = title;
-        this.availability = true;
     }
 
     //getters and setters
@@ -33,7 +31,6 @@ public class Book {
                 "isbn='" + isbn + '\'' +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
-                ", availability=" + availability +
                 '}';
     }
 }
